@@ -15,22 +15,29 @@ const UpdateForm = props => {
   const [movie, setMovie] = useState(initialForm);
   const { id } = useParams();
 
+
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/movies/${id}`)
+      .get(`http://localhost:5000/api/movies/${id}`)
       .then(res => {
         // res.data
+        console.log(res.data)
         setMovie(res.data);
       })
       .catch(err => console.log(err));
   }, [id]);
 
+  if (!props.movieList.length || !movie) {
+    return <h2>Loading movie .....</h2>
+  }
+
   const changeHandler = ev => {
     ev.persist();
     let value = ev.target.value;
-    if (ev.target.name === "price") {
-      value = parseInt(value, 10);
-    }
+    // if (ev.target.name === "price") {
+    //   value = parseInt(value, 10);
+    // }
 
     setMovie({
       ...movie,
@@ -42,17 +49,17 @@ const UpdateForm = props => {
     e.preventDefault();
     // make a PUT request to edit the item
     axios
-      .put(`http://localhost:5000/movies/${id}`, movie)
+      .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then(res => {
         // res.data
-        props.setMovies(res.data);
-        push(`/movies`);
+        setMovie(res.data);
+        push('/');
       })
       .catch(err => console.log(err));
   };
 
   return (
-    <div>
+    <div className='save-wrapper'>
       <h2>Update Item</h2>
       <form onSubmit={handleSubmit}>
         <input

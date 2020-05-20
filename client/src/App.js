@@ -26,6 +26,17 @@ const App = () => {
     getMovieList();
   }, []);
 
+  // const deleteMovie = (id) => {
+    
+
+  //   axios
+  //     .delete(`http://localhost:5000/api/movies/${id}`)
+  //     .then((res) => {
+  //       console.log(res.data)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
   return (
     <>
       <SavedList list={savedList} />
@@ -35,12 +46,15 @@ const App = () => {
       </Route>
 
       <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} />
+        <Movie
+          addToSavedList={addToSavedList}
+          
+        />
       </Route>
 
-      <Route path='/update-movie/:id'>
-        <UpdateForm />
-      </Route>
+      <Route path='/update-movie/:id' render={() => 
+        <UpdateForm movieList={movieList} setMovieList={setMovieList} />}
+        />
     </>
   );
 };
