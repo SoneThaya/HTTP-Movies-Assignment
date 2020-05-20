@@ -15,9 +15,8 @@ const UpdateForm = props => {
   const [movie, setMovie] = useState(initialForm);
   const { id } = useParams();
 
-
-
   useEffect(() => {
+    
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then(res => {
@@ -28,6 +27,8 @@ const UpdateForm = props => {
       .catch(err => console.log(err));
   }, [id]);
 
+  console.log(movie.title)
+
   if (!props.movieList.length || !movie) {
     return <h2>Loading movie .....</h2>
   }
@@ -35,9 +36,6 @@ const UpdateForm = props => {
   const changeHandler = ev => {
     ev.persist();
     let value = ev.target.value;
-    // if (ev.target.name === "price") {
-    //   value = parseInt(value, 10);
-    // }
 
     setMovie({
       ...movie,
@@ -53,7 +51,7 @@ const UpdateForm = props => {
       .then(res => {
         // res.data
         setMovie(res.data);
-        push('/');
+        push(`/movies/${id}`);
       })
       .catch(err => console.log(err));
   };

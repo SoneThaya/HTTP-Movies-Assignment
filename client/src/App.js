@@ -24,18 +24,7 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, []);
-
-  // const deleteMovie = (id) => {
-    
-
-  //   axios
-  //     .delete(`http://localhost:5000/api/movies/${id}`)
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  }, [movieList]);
 
   return (
     <>
